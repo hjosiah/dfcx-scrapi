@@ -41,10 +41,10 @@ SHEETS_SCOPE = [
 
 class KonaEmbeddingModel:
     """Download USE4 model and prep for calculating embeddings."""
-    def __init__(self, module_url=None):
-        if module_url is None:
-            module_url = "https://tfhub.dev/google/universal-sentence-encoder/4"
-        self.model = tensorflow_hub.load(module_url)
+    def __init__(self, model_url=None):
+        if model_url is None:
+            model_url = "https://tfhub.dev/google/universal-sentence-encoder/4"
+        self.model = tensorflow_hub.load(model_url)
 
     def embed(self, utterances, batch_size=512):
         """Generates embeddings for a given set of utterances."""
@@ -97,7 +97,7 @@ class NaturalLanguageUnderstandingUtil(scrapi_base.ScrapiBase):
         creds_path: str = None,
         creds_dict: Dict[str, str] = None,
         creds=None,
-        module_url=None,
+        model_url=None,
     ):
         super().__init__(
             creds_path=creds_path,
@@ -109,7 +109,7 @@ class NaturalLanguageUnderstandingUtil(scrapi_base.ScrapiBase):
         self._load_data(agent_id, flow_display_name, page_display_name)
 
         print("Loading embedder...")
-        self.embedder = KonaEmbeddingModel(module_url)
+        self.embedder = KonaEmbeddingModel(model_url)
 
         print("Generating embeddings for training data...")
         (
