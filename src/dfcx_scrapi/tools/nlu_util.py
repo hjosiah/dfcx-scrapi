@@ -41,8 +41,9 @@ SHEETS_SCOPE = [
 
 class KonaEmbeddingModel:
     """Download USE4 model and prep for calculating embeddings."""
-    def __init__(self):
-        module_url = "https://tfhub.dev/google/universal-sentence-encoder/4"
+    def __init__(self, module_url=None):
+        if module_url is None:
+            module_url = "https://tfhub.dev/google/universal-sentence-encoder/4"
         self.model = tensorflow_hub.load(module_url)
 
     def embed(self, utterances, batch_size=512):
